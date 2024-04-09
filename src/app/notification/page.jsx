@@ -67,6 +67,7 @@ const FormLayout = () => {
         url,
         date: new Date(), // Set notification date to current date
         status: "sent", // Set status to "sending" as it's a new content
+        index : contents.length + 1
       });
 
       console.log("Document written with ID: ", docRef.id);

@@ -19,7 +19,7 @@ const MapOne: React.FC = () => {
           fillOpacity: 1,
           fill: "#3056D3",
         },
-      },
+      } || {},
       regionLabelStyle: {
         initial: {
           fontFamily: "Satoshi",
@@ -41,7 +41,7 @@ const MapOne: React.FC = () => {
     });
 
     return () => {
-      mapOne.destroy();
+      mapOne?.destroy();
     };
   }, []);
 

@@ -259,7 +259,7 @@ const Calendar = () => {
                 <span className="font-medium text-black dark:text-white">
                   4
                 </span>
-              </td>
+              </td> 
             </tr>
             {/* <!-- Line 5 --> */}
           </tbody>

@@ -3,63 +3,103 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useEffect, useState } from "react";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { db } from "@/firebase/config";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { update } from "firebase/database";
 
 const FormLayout = () => {
   // State to store the input values
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [url, setUrl] = useState("");
+  const [contents, setContents] = useState([]);
+
+  const handleDelete = async (id) => {
+    console.log(id);
+    try {
+      // Delete the content from Firebase
+      await deleteDoc(doc(db, "posts", id));
+      // Update the contents state by filtering out the deleted content
+      setContents(contents.filter((msg) => msg.id !== id));
+    } catch (error) {
+      console.error("Error deleting content: ", error);
+    }
+  };
 
   useEffect(() => {
-    // Function to fetch messages from Firebase
-    const fetchMessages = async () => {
+    // Function to fetch contents from Firebase
+    const fetchContents = async () => {
       try {
-        const messagesCollection = collection(db, "messages");
-        const messagesSnapshot = await getDocs(messagesCollection);
-        const messagesData = messagesSnapshot.docs.map((doc) => doc.data());
-        setMessages(messagesData);
+        const contentsCollection = collection(db, "posts");
+        const contentsSnapshot = await getDocs(contentsCollection);
+        const contentsData = contentsSnapshot.docs.map((doc) => {
+          const data = doc.data();
+          data.id = doc.id;
+          return data;
+        });
+        console.log("Contents data: ", contentsData);
+        setContents(contentsData);
       } catch (error) {
-        console.error("Error fetching messages: ", error);
+        console.error("Error fetching contents: ", error);
       }
     };
 
-    fetchMessages();
+    fetchContents();
 
-    console.log(messages);
-  }, [subject === "", message === ""]);
+    console.log("Contents : ", contents);
+  }, [title === "", content === ""]);
 
   // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
 
     try {
-      // Add the message to Firebase
-      const docRef = await addDoc(collection(db, "messages"), {
-        subject,
-        message,
-        notificationDate: new Date().toLocaleDateString(), // Set notification date to current date
-        status: "sending", // Set status to "sending" as it's a new message
+      // Add the content to Firebase
+      const docRef = await addDoc(collection(db, "posts"), {
+        title,
+        content,
+        url,
+        date: new Date(), // Set notification date to current date
+        status: "sent", // Set status to "sending" as it's a new content
       });
 
       console.log("Document written with ID: ", docRef.id);
 
       // Reset the form fields after submission
-      setSubject("");
-      setMessage("");
+      setTitle("");
+      setContent("");
+      setUrl("");
+
+      // Update the contents state to reflect the new content added
+      // setTimeout(() => {
+      //   setContents([...contents, { title, content }]);
+      // }, 5000);
+      // await updateDoc(doc(db, "contents", docRef.id), {
+      //   status: "sent", // Update the status to "sent" after the content is sent
+      // });
     } catch (error) {
       console.error("Error adding document: ", error);
     }
   };
 
-  // Function to handle input changes for subject field
-  const handleSubjectChange = (event) => {
-    setSubject(event.target.value);
+  // Function to handle input changes for title field
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
   };
 
-  // Function to handle input changes for message field
-  const handleMessageChange = (event) => {
-    setMessage(event.target.value);
+  // Function to handle input changes for content field
+  const handleContentChange = (event) => {
+    setContent(event.target.value);
+  };
+
+  const handleUrlChange = (event) => {
+    setUrl(event.target.value);
   };
 
   return (
@@ -78,13 +118,26 @@ const FormLayout = () => {
             <div className="p-6.5">
               <div className="mb-4.5">
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                  Subject
+                  Title
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter subject"
-                  value={subject}
-                  onChange={handleSubjectChange}
+                  placeholder="Enter title"
+                  value={title}
+                  onChange={handleTitleChange}
+                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  required
+                />
+              </div>
+              <div className="mb-4.5">
+                <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                  Image
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter title"
+                  value={url}
+                  onChange={handleUrlChange}
                   className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   required
                 />
@@ -92,13 +145,13 @@ const FormLayout = () => {
 
               <div className="mb-6">
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                  Message
+                  Content
                 </label>
                 <textarea
                   rows={6}
-                  placeholder="Type your message"
-                  value={message}
-                  onChange={handleMessageChange}
+                  placeholder="Type your content"
+                  value={content}
+                  onChange={handleContentChange}
                   className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   required
                 ></textarea>
@@ -108,7 +161,7 @@ const FormLayout = () => {
                 type="submit"
                 className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
               >
-                Send Message
+                Send Content
               </button>
             </div>
           </form>
@@ -119,7 +172,7 @@ const FormLayout = () => {
               <thead>
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
                   <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                    Message
+                    Content
                   </th>
                   <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
                     Date
@@ -133,18 +186,20 @@ const FormLayout = () => {
                 </tr>
               </thead>
               <tbody>
-                {messages.map((packageItem, key) => (
+                {contents.map((packageItem, key) => (
                   <tr key={key}>
                     <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        {packageItem.message}
+                        {packageItem.content}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {packageItem.notificationDate}
+                        {packageItem.date.toDate().toLocaleDateString()}{" "}
+                        {/* Convert to date object and then to locale string */}
                       </p>
                     </td>
+
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <p
                         className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
@@ -158,7 +213,12 @@ const FormLayout = () => {
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <button className="hover:bg-primary">
+                        <button
+                          onClick={() => {
+                            handleDelete(packageItem.id);
+                          }}
+                          className="hover:bg-primary"
+                        >
                           <svg
                             className="fill-current"
                             width="18"
@@ -204,7 +264,12 @@ const FormLayout = () => {
                             </g>
                           </svg>
                         </button>
-                        <button className="hover:text-primary">
+                        <button
+                          className="hover:text-primary"
+                          onClick={() => {
+                            handleDelete(packageItem.id);
+                          }}
+                        >
                           <svg
                             className="fill-current"
                             width="18"
@@ -255,64 +320,64 @@ export default FormLayout;
 // {/* <!-- TODO: fetch from firebase --> */ }
 // const packageData = [
 //   {
-//     message: "All students are requested to come and give attendance All students are requested to come and give attendance All students are requested to come and give attendance All students are requested to come and give attendance ",
-//     notificationDate: `Jan 13,2023`,
+//     content: "All students are requested to come and give attendance All students are requested to come and give attendance All students are requested to come and give attendance All students are requested to come and give attendance ",
+//     date: `Jan 13,2023`,
 //     status: "sent",
 //   },
 //   {
-//     message: "Standard Package",
-//     notificationDate: `Jan 13,2023`,
+//     content: "Standard Package",
+//     date: `Jan 13,2023`,
 //     status: "sent",
 //   },
 //   {
-//     message: "Business Package",
-//     notificationDate: `Jan 13,2023`,
+//     content: "Business Package",
+//     date: `Jan 13,2023`,
 //     status: "sending",
 //   },
 //   {
-//     message: "Standard Package",
-//     notificationDate: `Jan 13,2023`,
+//     content: "Standard Package",
+//     date: `Jan 13,2023`,
 //     status: "sent",
 //   },
 // ];
 
 // const FormLayout = () => {
 
-//   const [message, setMessage] = useState([]);
-//   const [newMessage, setNewMessage] = useState(null); // State to store the new message
+//   const [content, setContent] = useState([]);
+//   const [newContent, setNewContent] = useState(null); // State to store the new content
 
 //   useEffect(() => {
-//     const getMessage = async () => {
-//       const messageRef = collection(db, "messages");
-//       const querySnapshot = await getDocs(messageRef);
+//     const getContent = async () => {
+//       const contentRef = collection(db, "contents");
+//       const querySnapshot = await getDocs(contentRef);
 //       const data = querySnapshot.docs.map((doc) => doc.data());
-//       setMessage(data);
+//       setContent(data);
 //     }
-//     getMessage();
+//     getContent();
 
-//     console.log(message);
+//     console.log(content);
 //   }, [])
 
 //   const handleSubmit = async () => {
-//     if (newMessage) {
+//     if (newContent) {
 //       try {
-//         console.log(newMessage);
-//         const docRef = await addDoc(collection(db, "messages"), newMessage);
+//         console.log(newContent);
+//         const docRef = await addDoc(collection(db, "contents"), newContent);
 //         console.log("Document written with ID: ", docRef.id);
-//         // Optionally, you can update the state to reflect the new message added
-//         setMessage(prevMessages => [...prevMessages, newMessage]);
-//         setNewMessage(null); // Reset newMessage state
+//         // Optionally, you can update the state to reflect the new content added
+//         setContent(prevContents => [...prevContents, newContent]);
+//         setNewContent(null); // Reset newContent state
 //       } catch (error) {
 //         console.error("Error adding document: ", error);
 //       }
 //     }
 //   }
 
-//   // Function to handle input changes and update newMessage state accordingly
+//   // Function to handle input changes and update newContent state accordingly
 //   const handleInputChange = () => {
 //     const { value } = event.target;
-//     setNewMessage(prevMessage => ({
-//       ...prevMessage,
+//     setNewContent(prevContent => ({
+//       ...prevContent,
 //       [key]: value
 //     }));
 //   }
@@ -333,42 +398,42 @@ export default FormLayout;
 //             <div className="p-6.5">
 //               <div className="mb-4.5">
 //                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-//                   Subject
+//                   Title
 //                 </label>
 //                 <input
 //                   type="text"
-//                   placeholder="Select subject"
+//                   placeholder="Select title"
 //                   className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
 //                 />
 //               </div>
 
 //               <div className="mb-6">
 //                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-//                   Message
+//                   Content
 //                 </label>
 //                 <textarea
 //                   rows={6}
-//                   placeholder="Type your message"
+//                   placeholder="Type your content"
 //                   className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
 //                 ></textarea>
 //               </div>
 
 //               <button onClick={handleSubmit} className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-//                 Send Message
+//                 Send Content
 //               </button>
 //             </div>
 //           </form>
 //         </div>
 //         {/* <!-- Contact Form Ends --> */}
 
-//         {/* <!-- Previous messages --> */}
+//         {/* <!-- Previous contents --> */}
 // <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
 //   <div className="max-w-full overflow-x-auto">
 //     <table className="w-full table-auto">
 //       <thead>
 //         <tr className="bg-gray-2 text-left dark:bg-meta-4">
 //           <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-//             Message
+//             Content
 //           </th>
 //           <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
 //             Date
@@ -386,12 +451,12 @@ export default FormLayout;
 //           <tr key={key}>
 //             <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
 //               <h5 className="font-medium text-black dark:text-white">
-//                 {packageItem.message}
+//                 {packageItem.content}
 //               </h5>
 //             </td>
 //             <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
 //               <p className="text-black dark:text-white">
-//                 {packageItem.notificationDate
+//                 {packageItem.date
 //                 }
 //               </p>
 //             </td>
@@ -452,7 +517,7 @@ export default FormLayout;
 //     </table>
 //   </div>
 // </div>
-//         {/* <!-- Previous messages end --> */}
+//         {/* <!-- Previous contents end --> */}
 
 //       </div>
 //     </DefaultLayout>

@@ -14,7 +14,7 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
           <li>
             <Link className="font-medium" href="/">
               Dashboard /
-            </Link>
+            </Link> 
           </li>
           <li className="font-medium text-primary">{pageName}</li>
         </ol>

@@ -8,39 +8,108 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import StudentsPresentCard from "@/components/StudentsPresentCard";
 import { useEffect, useState } from "react";
 import { db } from "@/firebase/config";
-import { collection, getDocs } from "firebase/firestore";
+import { Timestamp, collection, getDocs, addDoc } from "firebase/firestore";
 // reg no, name, phone number, room number
 
 const Attendance = () => {
   const [students, setStudents] = useState([]);
   const [absentStudents, setAbsentStudents] = useState([]);
   const [presentStudents, setPresentStudents] = useState([]);
+  let counter = 0;
+
+  const handlePresent = (email) => async () => {
+    const presentStudentsCol = collection(db, "attendance");
+  try {
+    await addDoc(presentStudentsCol, {
+      email: email,
+      timestamp: Timestamp.now()
+    });
+    console.log("Student marked present successfully");
+  } catch (error) {
+    console.error("Error marking student present: ", error);
+  }
+  
+    const presentStudentsSnapshot = await getDocs(presentStudentsCol);
+    const presentStudentsList = presentStudentsSnapshot.docs.map((doc) => doc.data());
+    setPresentStudents(presentStudentsList);
+  };
 
   useEffect(() => {
     const getStudents = async () => {
       const studentsCol = collection(db, "userData");
       const studentSnapshot = await getDocs(studentsCol);
       const studentList = studentSnapshot.docs.map((doc) => doc.data());
-      console.log(studentList);
       setStudents(studentList);
     };
-    getStudents();
-
-    console.log("students : ", students);
-
+  
     const getPresentStudents = async () => {
       const presentStudentsCol = collection(db, "attendance");
       const PresentStudentsSnapshot = await getDocs(presentStudentsCol);
-      const PresentStudentsList = PresentStudentsSnapshot.docs
-        .map((doc) => doc.data())
-      console.log(PresentStudentsList);
+      const PresentStudentsList = PresentStudentsSnapshot.docs.map((doc) =>
+        doc.data()
+      );
       setPresentStudents(PresentStudentsList);
-    }
-
+    };
+  
+    getStudents();
     getPresentStudents();
-
-    console.log("present students : ", presentStudents);
   }, []);
+  
+  useEffect(() => {
+    const calculateAbsentStudents = () => {
+      const absentStudentsList = students.filter(
+        (student) =>
+          !presentStudents.find(
+            (presentStudent) => presentStudent.email === student.useremail
+          )
+      );
+      setAbsentStudents(absentStudentsList);
+    };
+  
+    calculateAbsentStudents();
+  }, [students, presentStudents]);
+  
+
+  // useEffect(() => {
+  //   const getStudents = async () => {
+  //     const studentsCol = collection(db, "userData");
+  //     const studentSnapshot = await getDocs(studentsCol);
+  //     const studentList = studentSnapshot.docs.map((doc) => doc.data());
+  //     console.log(studentList);
+  //     setStudents(studentList);
+  //   };
+  //   getStudents();
+
+  //   console.log("students : ", students);
+
+  //   const getPresentStudents = async () => {
+  //     const presentStudentsCol = collection(db, "attendance");
+  //     const PresentStudentsSnapshot = await getDocs(presentStudentsCol);
+  //     const PresentStudentsList = PresentStudentsSnapshot.docs.map((doc) =>
+  //       doc.data(),
+  //     );
+  //     console.log(PresentStudentsList);
+  //     setPresentStudents(PresentStudentsList);
+  //   };
+
+  //   getPresentStudents();
+
+  //   console.log("present students : ", presentStudents);
+
+  //   const getAbsentStudents = async () => {
+  //     const absentStudentsList = students.filter(
+  //       (student) =>
+  //         !presentStudents.find(
+  //           (presentStudent) => presentStudent.email === student.useremail,
+  //         ),
+  //     );
+  //     console.log("absenties ",absentStudentsList);
+  //     setAbsentStudents(absentStudentsList);
+  //   }
+
+  //   getAbsentStudents();
+  //   console.log("absent students : ", absentStudents);
+  // }, []);
 
   console.log(students);
 
@@ -50,12 +119,16 @@ const Attendance = () => {
 
       {/* <!-- Cards  --> */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-2 2xl:gap-7.5">
-        <StudentsPresentCard block="A block " total={students.length} rate="">
+        <StudentsPresentCard
+          block="A block "
+          total={presentStudents.length}
+          rate=""
+        >
           Students Present
         </StudentsPresentCard>
         <StudentsPresentCard
           block="A block"
-          total="1943"
+          total={students.length - presentStudents.length}
           rate=""
           levelDown
         >
@@ -111,12 +184,12 @@ const Attendance = () => {
             >
               <div className="flex items-center gap-3 p-2.5 xl:p-5 ">
                 <p className="hidden text-black dark:text-white sm:block">
-                  {brand.registration}
+                  {brand.regNum}
                 </p>
               </div>
 
               <div className="flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-black dark:text-white">{brand.name}</p>
+                <p className="text-black dark:text-white">{brand.user}</p>
               </div>
 
               <div className="flex items-center justify-center p-2.5 xl:p-5">
@@ -124,12 +197,12 @@ const Attendance = () => {
               </div>
 
               <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="text-black dark:text-white">{brand.room}</p>
+                <p className="text-black dark:text-white">{brand.rno}</p>
               </div>
 
-              <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="text-meta-5">
-                  <input className="w-4 border" type="checkbox"></input>{" "}
+              <div onClick={handlePresent(brand.useremail)} className="hidden  items-center justify-center p-2.5 sm:flex xl:p-5">
+                <p className="bg-green-500 px-2 py-1 rounded-3xl text-white">
+                  Present
                 </p>
               </div>
             </div>

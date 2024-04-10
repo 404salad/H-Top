@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -5,6 +6,9 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import StudentsPresentCard from "@/components/StudentsPresentCard";
+import { useEffect, useState } from "react";
+import {db} from "@/firebase/config"
+import { collection, getDocs } from "firebase/firestore";
 // reg no, name, phone number, room number
 
 
@@ -31,7 +35,25 @@ const brandData = [
   ];
 
   
-const Attendance: React.FC = () => {
+const Attendance = () => {
+
+    const [students, setStudents] = useState([]);
+
+    useEffect(() => {
+        const getStudents = async () => {
+            const studentsCol = collection(db, "students");
+            const studentSnapshot = await getDocs(studentsCol);
+            const studentList = studentSnapshot.docs.map(doc => doc.data());
+            console.log(studentList);
+            setStudents(studentList);
+        }
+        getStudents();
+
+        console.log("students : ",students);
+    }, []);
+
+    console.log(students);
+
   return (
     <DefaultLayout>
         <h1 className="text-3xl py-5">Hostel Attendance</h1>

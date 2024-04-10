@@ -11,6 +11,8 @@ import { db } from "@/firebase/config";
 import { Timestamp, collection, getDocs, addDoc } from "firebase/firestore";
 // reg no, name, phone number, room number
 
+let allStudents;
+
 const Attendance = () => {
   const [students, setStudents] = useState([]);
   const [absentStudents, setAbsentStudents] = useState([]);

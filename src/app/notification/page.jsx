@@ -228,7 +228,7 @@ const FormLayout = () => {
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                             <g
                               id="SVGRepo_tracerCarrier"
                               stroke-linecap="round"
@@ -249,7 +249,7 @@ const FormLayout = () => {
                                       stroke="#9a9996"
                                       stroke-linecap="round"
                                       stroke-linejoin="round"
-                                      stroke-width="2"
+                                      strokeWidth="2"
                                     ></path>{" "}
                                     <polygon
                                       fill="none"
@@ -257,7 +257,7 @@ const FormLayout = () => {
                                       stroke="#9a9996"
                                       stroke-linecap="round"
                                       stroke-linejoin="round"
-                                      stroke-width="2"
+                                      strokeWidth="2"
                                     ></polygon>{" "}
                                   </g>{" "}
                                 </g>{" "}
@@ -479,7 +479,7 @@ export default FormLayout;
 //                     height="18"
 //                     viewBox="0 0 22 22"
 //                     fill="none"
-//                     xmlns="http://www.w3.org/2000/svg" ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#9a9996" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#9a9996" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon> </g> </g> </g> </g></svg>
+//                     xmlns="http://www.w3.org/2000/svg" ><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#9a9996" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#9a9996" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2"></polygon> </g> </g> </g> </g></svg>
 
 //                 </button>
 //                 <button className="hover:text-primary">

@@ -35,10 +35,14 @@ const ECommerce = () => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
         <CardDataStats title="Active Complaints" total={unsolvedCount} rate="">
           {/* Add your SVG or any icon */}
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 12H16M16 12L12.5 8.5M16 12L12.5 15.5" stroke="#f6f5f4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#f6f5f4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          
         </CardDataStats>
         <CardDataStats title="Today's Solved Complaints" total={solvedCount} rate="">
           {/* Add your SVG or any icon */}
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#f6f5f4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="#f6f5f4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </CardDataStats>
+        
         {/* Add other cards if needed */}
       </div>
 

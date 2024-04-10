@@ -1,6 +1,6 @@
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 
-const Calendar = () => {
+const  Calendar = () => {
   return (
     <div className="mx-auto max-w-7xl">
       <Breadcrumb pageName="Attendance" />
@@ -10,10 +10,7 @@ const Calendar = () => {
         <table className="w-full">
           <thead>
             <tr className="grid grid-cols-7 rounded-t-sm bg-primary text-white">
-              <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
-                <span className="hidden lg:block"> Sunday </span>
-                <span className="block lg:hidden"> Sun </span>
-              </th>
+
               <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
                 <span className="hidden lg:block"> Monday </span>
                 <span className="block lg:hidden"> Mon </span>
@@ -38,6 +35,10 @@ const Calendar = () => {
                 <span className="hidden lg:block"> Saturday </span>
                 <span className="block lg:hidden"> Sat </span>
               </th>
+              <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
+                <span className="hidden lg:block"> Sunday </span>
+                <span className="block lg:hidden"> Sun </span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -51,12 +52,12 @@ const Calendar = () => {
                   <span className="group-hover:text-primary md:hidden">
                     More
                   </span>
-                  <div className="event invisible absolute left-2 z-99 mb-1 flex w-[200%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:bg-meta-4 md:visible md:w-[190%] md:opacity-100">
+                  <div className="event invisible absolute left-2 z-99 mb-1 flex w-[100%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:bg-meta-4 md:visible md:w-[90%] md:opacity-100">
                     <span className="event-name text-sm font-semibold text-black dark:text-white">
-                      Redesign Website
+                      April Fools
                     </span>
                     <span className="time text-sm font-medium text-black dark:text-white">
-                      1 Dec - 2 Dec
+                      1 Apr 
                     </span>
                   </div>
                 </div>
@@ -198,10 +199,10 @@ const Calendar = () => {
                   </span>
                   <div className="event invisible absolute left-2 z-99 mb-1 flex w-[300%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:bg-meta-4 md:visible md:w-[290%] md:opacity-100">
                     <span className="event-name text-sm font-semibold text-black dark:text-white">
-                      App Design
+                      Holiday
                     </span>
                     <span className="time text-sm font-medium text-black dark:text-white">
-                      25 Dec - 27 Dec
+                      25 Apr - 27 Apr
                     </span>
                   </div>
                 </div>

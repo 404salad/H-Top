@@ -5,16 +5,16 @@ import ChartThree from "../Charts/ChartThree";
 import ChartTwo from "../Charts/ChartTwo";
 import ChatCard from "../Chat/ChatCard";
 import TableOne from "../Tables/TableOne";
-import CardDataStats from "../CardDataStats";
+import CardDataStats2 from "../CardDataStats2";
 import MapOne from "../Maps/MapOne";
 
 const ECommerce: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
+        <CardDataStats2 title="Hostels" total="5" rate="0.43%" levelUp>
           <svg
-            className="fill-primary dark:fill-white"
+            className="fill-primary dark:fill-#040303"
             width="22"
             height="16"
             viewBox="0 0 22 16"
@@ -30,8 +30,8 @@ const ECommerce: React.FC = () => {
               fill=""
             />
           </svg>
-        </CardDataStats>
-        <CardDataStats title="Total Profit" total="$45,2K" rate="4.35%" levelUp>
+        </CardDataStats2>
+        <CardDataStats2 title="Student Admissions" total="10M" rate="12%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -53,9 +53,9 @@ const ECommerce: React.FC = () => {
               fill=""
             />
           </svg>
-        </CardDataStats>
+        </CardDataStats2>
       
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats2 title="Rooms" total="4424" rate="2.59%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -73,8 +73,8 @@ const ECommerce: React.FC = () => {
               fill=""
             />
           </svg>
-        </CardDataStats>
-        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
+        </CardDataStats2>
+        <CardDataStats2 title="Total Users" total="3.456" rate="0.95%" levelDown>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -96,18 +96,13 @@ const ECommerce: React.FC = () => {
               fill=""
             />
           </svg>
-        </CardDataStats>
+        </CardDataStats2>
       </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+      <div className="mt-4 flex flex-row gap-5">
         <ChartOne />
-        <ChartTwo />
         <ChartThree />
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
-        </div>
-        <ChatCard />
+      
       </div>
     </>
   );

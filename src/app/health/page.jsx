@@ -100,8 +100,8 @@ function HealthStatus() {
                 </button>
               </div>
             )}
-            {data.isIll == 1 && <div>Accepted</div>}
-            {data.isIll == -1 && <div>Rejected</div>}
+            {data.isIll == 1 && <div className="w-full flex justify-end"><button className="border-green-300 border-2 w-32 h-16 rounded-lg">Accepted</button></div>}
+            {data.isIll == -1 && <div className="w-full flex justify-end"><button className="border-red border-2 w-32 h-16 rounded-lg">Rejected</button></div>}
             <div className="mt-4 flex items-end justify-between"></div>
           </div>
         </div>

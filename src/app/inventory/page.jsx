@@ -272,7 +272,7 @@ const FormLayout = () => {
               xmlns="http://www.w3.org/2000/svg"
               transform="matrix(1, 0, 0, 1, 0, 0)"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.4"
                   y="-2.4"
@@ -309,7 +309,7 @@ const FormLayout = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="#3c4fe0"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.4"
                   y="-2.4"
@@ -345,7 +345,7 @@ const FormLayout = () => {
               xmlns="http://www.w3.org/2000/svg"
               stroke="#3c4fe0"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.4"
                   y="-2.4"
@@ -382,10 +382,10 @@ const FormLayout = () => {
               viewBox="-2.4 -2.4 28.80 28.80"
               id="ac"
               xmlns="http://www.w3.org/2000/svg"
-              class="icon line"
+              className="icon line"
               stroke="#3c4fe0"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.4"
                   y="-2.4"
@@ -420,7 +420,7 @@ const FormLayout = () => {
               xmlns="http://www.w3.org/2000/svg"
               stroke="#eff2f6"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.4"
                   y="-2.4"
@@ -441,7 +441,7 @@ const FormLayout = () => {
                 <path
                   d="M3 5V19M3 16H21M21 19V13.2C21 12.0799 21 11.5198 20.782 11.092C20.5903 10.7157 20.2843 10.4097 19.908 10.218C19.4802 10 18.9201 10 17.8 10H11V15.7273M7 12H7.01M8 12C8 12.5523 7.55228 13 7 13C6.44772 13 6 12.5523 6 12C6 11.4477 6.44772 11 7 11C7.55228 11 8 11.4477 8 12Z"
                   stroke="#3c4fe0"
-                  stroke-width="2"
+                  strokeWidth="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 ></path>{" "}
@@ -458,7 +458,7 @@ const FormLayout = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.4"
                   y="-2.4"
@@ -479,25 +479,25 @@ const FormLayout = () => {
                 <path
                   d="M5 9.5V19C5 19.6491 4.78947 20.2807 4.4 20.8L3.5 22M19 9.5V19C19 19.6491 19.2105 20.2807 19.6 20.8L20.5 22"
                   stroke="#3c4fe0"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                 ></path>{" "}
                 <path
                   d="M6.34141 7C6.12031 7.78195 6 8.62341 6 9.5C6 13.6421 8.68629 17 12 17C15.3137 17 18 13.6421 18 9.5C18 5.35786 15.3137 2 12 2C10.9091 2 9.88613 2.36394 9.00466 3"
                   stroke="#3c4fe0"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                 ></path>{" "}
                 <path
                   d="M5 20H12M19 20H16"
                   stroke="#3c4fe0"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                 ></path>{" "}
                 <path
                   d="M13 5.2561C13.9608 5.76552 14.697 6.98832 14.9257 8.50024"
                   stroke="#3c4fe0"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                 ></path>{" "}
               </g>
@@ -513,7 +513,7 @@ const FormLayout = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.5"
                   y="-2.5"
@@ -536,7 +536,7 @@ const FormLayout = () => {
                   clip-rule="evenodd"
                   d="M10.769 17.5H14.231C15.732 17.5279 16.9715 16.334 17 14.833V12.167C16.9715 10.666 15.732 9.47211 14.231 9.49999H10.769C9.268 9.47211 8.02845 10.666 8 12.167V14.834C8.029 16.3346 9.26839 17.5279 10.769 17.5Z"
                   stroke="#3c4fe0"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 ></path>{" "}
@@ -557,7 +557,7 @@ const FormLayout = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0">
+              <g id="SVGRepo_bgCarrier" strokeWidth="0">
                 <rect
                   x="-2.5"
                   y="-2.5"
@@ -580,14 +580,14 @@ const FormLayout = () => {
                   clip-rule="evenodd"
                   d="M19.5 17.0001L18.377 11.5291H8.553C7.505 11.5291 7.114 12.1291 6.653 13.3761L5.5 17.0001H19.5Z"
                   stroke="#3c4fe0"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 ></path>{" "}
                 <path
                   d="M18.3771 11.529L17.5281 7H12.1531"
                   stroke="#3c4fe0"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 ></path>{" "}

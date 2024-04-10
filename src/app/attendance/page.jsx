@@ -11,6 +11,8 @@ import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 // reg no, name, phone number, room number
 
+let allStudents;
+
 const Attendance = () => {
   const [students, setStudents] = useState([]);
   const [absentStudents, setAbsentStudents] = useState([]);
@@ -56,7 +58,7 @@ const Attendance = () => {
         <StudentsPresentCard
           block="A block"
           total="1943"
-          rate=""
+          rate=""  
           levelDown
         >
           Students Absent

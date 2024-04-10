@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
+import CsvDownloadButton from 'react-json-to-csv'
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import StudentsPresentCard from "@/components/StudentsPresentCard";
 import { useEffect, useState } from "react";
@@ -71,6 +72,7 @@ const Attendance = () => {
     calculateAbsentStudents();
   }, [students, presentStudents]);
   
+  console.log("absentees are " , absentStudents)
 
   // useEffect(() => {
   //   const getStudents = async () => {
@@ -118,7 +120,7 @@ const Attendance = () => {
   return (
     <DefaultLayout>
       <h1 className="py-5 text-3xl">Hostel Attendance</h1>
-
+    
       {/* <!-- Cards  --> */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-2 2xl:gap-7.5">
         <StudentsPresentCard
@@ -145,6 +147,10 @@ const Attendance = () => {
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
           List of Hostel Absentees
         </h4>
+
+          <p className="bg-green-500 px-2 py-1 rounded-3xl text-white w-fit">
+      <CsvDownloadButton data={absentStudents} />
+      </p>
 
         <div className="flex flex-col">
           <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
@@ -174,7 +180,6 @@ const Attendance = () => {
               </h5>
             </div>
           </div>
-
           {absentStudents.map((brand, key) => (
             <div
               className={`grid grid-cols-3 sm:grid-cols-5 ${
@@ -205,7 +210,7 @@ const Attendance = () => {
               <div onClick={handlePresent(brand.useremail)} className="hidden  items-center justify-center p-2.5 sm:flex xl:p-5">
                 <p className="bg-green-500 px-2 py-1 rounded-3xl text-white">
                   Present
-                </p>
+                  </p>
               </div>
             </div>
           ))}
